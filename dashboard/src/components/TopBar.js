@@ -12,7 +12,9 @@ const TopBar = () => {
 
   const fetchIndices = async () => {
     try {
-      const res = await axios.get("http://localhost:3002/api/market/indices");
+      const res = await axios.get(
+        "https://tradehub-6mu3.onrender.com/api/market/indices",
+      );
 
       setIndices(res.data);
     } catch (err) {

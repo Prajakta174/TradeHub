@@ -28,11 +28,14 @@ const Profile = () => {
     try {
       setUploading(true);
 
-      const res = await fetch("http://localhost:3002/api/user/profile-image", {
-        method: "PUT",
-        credentials: "include",
-        body: formData,
-      });
+      const res = await fetch(
+        "https://tradehub-6mu3.onrender.com/api/user/profile-image",
+        {
+          method: "PUT",
+          credentials: "include",
+          body: formData,
+        },
+      );
 
       const data = await res.json();
 

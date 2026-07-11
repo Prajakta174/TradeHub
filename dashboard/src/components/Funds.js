@@ -14,9 +14,12 @@ const Funds = () => {
 
   const fetchFunds = async () => {
     try {
-      const res = await axios.get("http://localhost:3002/api/funds", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://tradehub-6mu3.onrender.com/api/funds",
+        {
+          withCredentials: true,
+        },
+      );
 
       setFunds(res.data);
     } catch (err) {

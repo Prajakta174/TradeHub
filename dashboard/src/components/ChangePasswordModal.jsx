@@ -32,7 +32,7 @@ const ChangePasswordModal = ({ onClose }) => {
       setLoading(true);
 
       const res = await fetch(
-        "http://localhost:3002/api/user/change-password",
+        "https://tradehub-6mu3.onrender.com/api/user/change-password",
         {
           method: "PUT",
 

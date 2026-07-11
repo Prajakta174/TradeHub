@@ -5,7 +5,7 @@ import axios from "axios";
 function Navbar() {
   const openDashboard = async () => {
     try {
-      await axios.get("http://localhost:3002/api/auth/check", {
+      await axios.get("https://tradehub-6mu3.onrender.com/api/auth/check", {
         withCredentials: true,
       });
 

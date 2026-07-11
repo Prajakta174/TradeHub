@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3002/api/user/profile", {
+    fetch("https://tradehub-6mu3.onrender.com/api/user/profile", {
       credentials: "include",
     })
       .then((res) => {

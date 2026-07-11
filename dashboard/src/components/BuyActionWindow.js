@@ -13,7 +13,7 @@ const BuyActionWindow = ({ uid }) => {
   const handleBuyClick = async () => {
     try {
       await axios.post(
-        "http://localhost:3002/api/orders/buy",
+        "https://tradehub-6mu3.onrender.com/api/orders/buy",
         {
           symbol: uid,
           quantity: Number(stockQuantity),

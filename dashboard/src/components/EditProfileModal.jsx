@@ -26,19 +26,22 @@ const EditProfileModal = ({ onClose }) => {
     }
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:3002/api/user/profile", {
-        method: "PUT",
-        credentials: "include",
+      const res = await fetch(
+        "https://tradehub-6mu3.onrender.com/api/user/profile",
+        {
+          method: "PUT",
+          credentials: "include",
 
-        headers: {
-          "Content-Type": "application/json",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            username,
+            email,
+          }),
         },
-
-        body: JSON.stringify({
-          username,
-          email,
-        }),
-      });
+      );
 
       const data = await res.json();
 

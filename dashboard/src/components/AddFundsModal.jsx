@@ -14,7 +14,7 @@ const AddFundsModal = ({ close, refresh }) => {
 
     try {
       await axios.post(
-        "http://localhost:3002/api/funds/add",
+        "https://tradehub-6mu3.onrender.com/api/funds/add",
         {
           amount: Number(amount),
         },

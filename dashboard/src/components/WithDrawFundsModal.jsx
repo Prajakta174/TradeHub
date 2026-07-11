@@ -14,7 +14,7 @@ const WithdrawFundsModal = ({ close, refresh }) => {
 
     try {
       await axios.post(
-        "http://localhost:3002/api/funds/withdraw",
+        "https://tradehub-6mu3.onrender.com/api/funds/withdraw",
         {
           amount: Number(amount),
         },

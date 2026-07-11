@@ -10,9 +10,12 @@ const Positions = () => {
 
   const fetchPositions = async () => {
     try {
-      const res = await axios.get("http://localhost:3002/api/positions", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://tradehub-6mu3.onrender.com/api/positions",
+        {
+          withCredentials: true,
+        },
+      );
 
       setPositions(res.data);
     } catch (err) {

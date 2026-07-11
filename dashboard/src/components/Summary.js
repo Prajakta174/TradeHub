@@ -17,9 +17,12 @@ const Summary = () => {
 
   const fetchSummary = async () => {
     try {
-      const res = await axios.get("http://localhost:3002/api/dashboard", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://tradehub-6mu3.onrender.com/api/dashboard",
+        {
+          withCredentials: true,
+        },
+      );
 
       setSummary(res.data);
     } catch (err) {

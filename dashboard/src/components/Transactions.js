@@ -10,9 +10,12 @@ const Transactions = () => {
 
   const fetchTransactions = async () => {
     try {
-      const res = await axios.get("http://localhost:3002/api/transactions", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://tradehub-6mu3.onrender.com/api/transactions",
+        {
+          withCredentials: true,
+        },
+      );
 
       setTransactions(res.data);
     } catch (err) {

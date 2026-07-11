@@ -63,9 +63,12 @@ const WatchList = () => {
   }, [search]);
   const fetchWatchlist = async () => {
     try {
-      const res = await axios.get("http://localhost:3002/api/watchlist", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://tradehub-6mu3.onrender.com/api/watchlist",
+        {
+          withCredentials: true,
+        },
+      );
 
       setWatchlist(res.data);
     } catch (err) {
@@ -76,7 +79,7 @@ const WatchList = () => {
     try {
       console.log("Searching:", search);
       const res = await axios.get(
-        `http://localhost:3002/api/stocks/search?q=${search}`,
+        `https://tradehub-6mu3.onrender.com/api/stocks/search?q=${search}`,
       );
       console.log("Response:", res.data);
 
@@ -88,7 +91,7 @@ const WatchList = () => {
   const addToWatchlist = async (stock) => {
     try {
       await axios.post(
-        "http://localhost:3002/api/watchlist",
+        "https://tradehub-6mu3.onrender.com/api/watchlist",
         {
           symbol: stock.symbol,
         },

@@ -9,7 +9,7 @@ const Holdings = () => {
   const [allPositions, setAllPositions] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:3002/api/holdings", {
+      .get("https://tradehub-6mu3.onrender.com/api/holdings", {
         withCredentials: true,
       })
       .then((res) => {
@@ -22,7 +22,7 @@ const Holdings = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/api/positions", {
+      .get("https://tradehub-6mu3.onrender.com/api/positions", {
         withCredentials: true,
       })
       .then((res) => {

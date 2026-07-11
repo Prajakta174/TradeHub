@@ -17,7 +17,7 @@ const Menu = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:3002/api/auth/logout", {
+      await fetch("https://tradehub-6mu3.onrender.com/api/auth/logout", {
         method: "POST",
         credentials: "include",
       });

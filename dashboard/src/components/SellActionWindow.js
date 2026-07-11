@@ -13,7 +13,7 @@ const SellActionWindow = ({ uid }) => {
   const handleSellClick = async () => {
     try {
       await axios.post(
-        "http://localhost:3002/api/orders/sell",
+        "https://tradehub-6mu3.onrender.com/api/orders/sell",
         {
           symbol: uid,
           quantity: Number(stockQuantity),
