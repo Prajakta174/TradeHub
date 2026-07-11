@@ -1,61 +1,96 @@
 import React from "react";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+import "./summary.css";
 const Summary = () => {
+  const [summary, setSummary] = useState({
+    user: {},
+    investment: 0,
+    currentValue: 0,
+    profitLoss: 0,
+    todayPnL: 0,
+    holdings: 0,
+  });
+  useEffect(() => {
+    fetchSummary();
+  }, []);
+
+  const fetchSummary = async () => {
+    try {
+      const res = await axios.get("http://localhost:3002/api/dashboard", {
+        withCredentials: true,
+      });
+
+      setSummary(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
-      <div className="username">
-        <h6>Hi, User!</h6>
-        <hr className="divider" />
+      <div className="dashboard-header">
+        <div>
+          <h2>
+            Good{" "}
+            {new Date().getHours() < 12
+              ? "Morning"
+              : new Date().getHours() < 17
+                ? "Afternoon"
+                : "Evening"}
+            , {summary.user?.username || "User"}
+          </h2>
+
+          <p>Welcome back! Here's your portfolio summary.</p>
+        </div>
       </div>
 
-      <div className="section">
-        <span>
-          <p>Equity</p>
-        </span>
-
-        <div className="data">
-          <div className="first">
-            <h3>3.74k</h3>
-            <p>Margin available</p>
-          </div>
-          <hr />
-
-          <div className="second">
-            <p>
-              Margins used <span>0</span>{" "}
-            </p>
-            <p>
-              Opening balance <span>3.74k</span>{" "}
-            </p>
-          </div>
+      <div className="summary-cards">
+        <div className="card">
+          <h5>Investment</h5>
+          <h3>₹{summary.investment.toFixed(2)}</h3>
         </div>
-        <hr className="divider" />
+
+        <div className="card">
+          <h5>Current Value</h5>
+          <h3>₹{summary.currentValue.toFixed(2)}</h3>
+        </div>
+
+        <div className="card">
+          <h5>Total P&L</h5>
+
+          <h3 className={summary.profitLoss >= 0 ? "profit" : "loss"}>
+            ₹{summary.profitLoss.toFixed(2)}
+          </h3>
+        </div>
+
+        <div className="card">
+          <h5>Holdings</h5>
+          <h3>{summary.holdings}</h3>
+        </div>
       </div>
 
-      <div className="section">
-        <span>
-          <p>Holdings (13)</p>
-        </span>
+      <div className="portfolio-section">
+        <h3>Portfolio Overview</h3>
 
-        <div className="data">
-          <div className="first">
-            <h3 className="profit">
-              1.55k <small>+5.20%</small>{" "}
-            </h3>
-            <p>P&L</p>
-          </div>
-          <hr />
+        <div className="portfolio-row">
+          <span>Current Value</span>
 
-          <div className="second">
-            <p>
-              Current Value <span>31.43k</span>{" "}
-            </p>
-            <p>
-              Investment <span>29.88k</span>{" "}
-            </p>
-          </div>
+          <strong>₹{summary.currentValue.toFixed(2)}</strong>
         </div>
-        <hr className="divider" />
+
+        <div className="portfolio-row">
+          <span>Total Investment</span>
+
+          <strong>₹{summary.investment.toFixed(2)}</strong>
+        </div>
+
+        <div className="portfolio-row">
+          <span>Today's P&L</span>
+
+          <strong className={summary.todayPnL >= 0 ? "profit" : "loss"}>
+            ₹{summary.todayPnL.toFixed(2)}
+          </strong>
+        </div>
       </div>
     </>
   );

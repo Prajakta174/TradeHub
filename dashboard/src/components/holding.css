@@ -1,0 +1,149 @@
+.holdings {
+  padding: 0 24px 24px;
+  background: #fafafb;
+  min-height: 100vh;
+}
+
+/* Page Title */
+
+.title {
+  margin: 0 0 24px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 24px;
+}
+
+/* Table Container */
+
+.order-table {
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Table */
+
+.order-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header */
+
+.order-table thead {
+  background: #fafafa;
+}
+
+.order-table th {
+  text-align: left;
+  padding: 18px;
+  font-size: 13px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  border-bottom: 1px solid #ececec;
+}
+
+/* Body */
+
+.order-table td {
+  padding: 18px;
+  border-bottom: 1px solid #f2f2f2;
+  color: #444;
+  font-size: 14px;
+}
+
+.order-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Hover */
+
+.order-table tbody tr {
+  transition: background .2s;
+}
+
+.order-table tbody tr:hover {
+  background: #fafcff;
+}
+
+/* Stock Name */
+
+.order-table td:first-child {
+  font-weight: 600;
+  color: #222;
+}
+
+/* Profit */
+
+.profit {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+/* Loss */
+
+.loss {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+/* Summary */
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.col {
+  flex: 1;
+  background: white;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.col h5 {
+  color: #777;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.col h2 {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.col p {
+  color: #666;
+  margin-top: 8px;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+.order-table{
+overflow-x:auto;
+}
+
+.order-table table{
+min-width:850px;
+}
+
+.row{
+flex-direction:column;
+}
+
+}
+.chart-card{
+    margin-top:40px;
+    background:#fff;
+    border:1px solid #ececec;
+    border-radius:12px;
+    padding:25px;
+}

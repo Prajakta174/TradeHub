@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import axios from "axios";
-
+import "./watchlist.css";
 import GeneralContext from "./GeneralContext";
 
 import { Tooltip, Grow } from "@mui/material";
@@ -13,76 +13,129 @@ import {
   MoreHoriz,
 } from "@mui/icons-material";
 
-import { watchlist } from "../data/data";
 import { DoughnutChart } from "./DoughnoutChart";
 
-const labels = watchlist.map((subArray) => subArray["name"]);
-
 const WatchList = () => {
+  const [watchlist, setWatchlist] = useState([]);
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const labels = watchlist.map((stock) => stock.symbol);
   const data = {
     labels,
     datasets: [
       {
         label: "Price",
         data: watchlist.map((stock) => stock.price),
+
         backgroundColor: [
-          "rgba(255, 99, 132, 0.5)",
-          "rgba(54, 162, 235, 0.5)",
-          "rgba(255, 206, 86, 0.5)",
-          "rgba(75, 192, 192, 0.5)",
-          "rgba(153, 102, 255, 0.5)",
-          "rgba(255, 159, 64, 0.5)",
+          "#387ed1",
+          "#00b894",
+          "#fdcb6e",
+          "#6c5ce7",
+          "#ff7675",
+          "#00cec9",
+          "#e17055",
+          "#0984e3",
+          "#2ecc71",
+          "#8e44ad",
         ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
-        borderWidth: 1,
+        borderColor: "#fff",
+        borderWidth: 2,
+        hoverOffset: 12,
       },
     ],
   };
+  useEffect(() => {
+    fetchWatchlist();
+  }, []);
+  useEffect(() => {
+    if (!search.trim()) {
+      setSearchResults([]);
+      return;
+    }
 
-  // export const data = {
-  //   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-  // datasets: [
-  //   {
-  //     label: "# of Votes",
-  //     data: [12, 19, 3, 5, 2, 3],
-  //     backgroundColor: [
-  //       "rgba(255, 99, 132, 0.2)",
-  //       "rgba(54, 162, 235, 0.2)",
-  //       "rgba(255, 206, 86, 0.2)",
-  //       "rgba(75, 192, 192, 0.2)",
-  //       "rgba(153, 102, 255, 0.2)",
-  //       "rgba(255, 159, 64, 0.2)",
-  //     ],
-  //     borderColor: [
-  //       "rgba(255, 99, 132, 1)",
-  //       "rgba(54, 162, 235, 1)",
-  //       "rgba(255, 206, 86, 1)",
-  //       "rgba(75, 192, 192, 1)",
-  //       "rgba(153, 102, 255, 1)",
-  //       "rgba(255, 159, 64, 1)",
-  //     ],
-  //     borderWidth: 1,
-  //   },
-  // ],
-  // };
+    const timer = setTimeout(() => {
+      searchStock();
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [search]);
+  const fetchWatchlist = async () => {
+    try {
+      const res = await axios.get("http://localhost:3002/api/watchlist", {
+        withCredentials: true,
+      });
+
+      setWatchlist(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const searchStock = async () => {
+    try {
+      console.log("Searching:", search);
+      const res = await axios.get(
+        `http://localhost:3002/api/stocks/search?q=${search}`,
+      );
+      console.log("Response:", res.data);
+
+      setSearchResults(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const addToWatchlist = async (stock) => {
+    try {
+      await axios.post(
+        "http://localhost:3002/api/watchlist",
+        {
+          symbol: stock.symbol,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      // Refresh the left watchlist
+      fetchWatchlist();
+
+      // Clear search
+      setSearch("");
+
+      // Close dropdown
+      setSearchResults([]);
+
+      alert(`${stock.symbol} added successfully`);
+    } catch (err) {
+      alert(err.response?.data?.message || "Unable to add stock");
+    }
+  };
 
   return (
     <div className="watchlist-container">
       <div className="search-container">
         <input
           type="text"
-          name="search"
-          id="search"
-          placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
+          placeholder="Search stocks..."
           className="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
+        {searchResults.length > 0 && (
+          <div className="search-results">
+            {searchResults.map((stock) => (
+              <div className="search-item" key={stock._id}>
+                <div>
+                  <strong>{stock.symbol}</strong>
+                  <p>{stock.companyName}</p>
+                </div>
+
+                <button onClick={() => addToWatchlist(stock)}>Add</button>
+              </div>
+            ))}
+          </div>
+        )}
         <span className="counts"> {watchlist.length} / 50</span>
       </div>
 
@@ -113,9 +166,9 @@ const WatchListItem = ({ stock }) => {
   return (
     <li onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="item">
-        <p className={stock.isDown ? "down" : "up"}>{stock.name}</p>
-        <div className="itemInfo">
-          <span className="percent">{stock.percent}</span>
+        <p className={stock.isDown ? "down" : "up"}>{stock.symbol}</p>
+        <div className="item-info">
+          <span className="percent">{stock.changePercent}%</span>
           {stock.isDown ? (
             <KeyboardArrowDown className="down" />
           ) : (
@@ -124,7 +177,7 @@ const WatchListItem = ({ stock }) => {
           <span className="price">{stock.price}</span>
         </div>
       </div>
-      {showWatchlistActions && <WatchListActions uid={stock.name} />}
+      {showWatchlistActions && <WatchListActions uid={stock.symbol} />}
     </li>
   );
 };
@@ -135,7 +188,9 @@ const WatchListActions = ({ uid }) => {
   const handleBuyClick = () => {
     generalContext.openBuyWindow(uid);
   };
-
+  const handleSellClick = () => {
+    generalContext.openSellWindow(uid);
+  };
   return (
     <span className="actions">
       <span>
@@ -154,7 +209,9 @@ const WatchListActions = ({ uid }) => {
           arrow
           TransitionComponent={Grow}
         >
-          <button className="sell">Sell</button>
+          <button className="sell" onClick={handleSellClick}>
+            Sell
+          </button>
         </Tooltip>
         <Tooltip
           title="Analytics (A)"

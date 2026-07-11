@@ -1,4 +1,22 @@
-node_modules/
-.env
-dist/
+# Backend
+backend/node_modules/
+backend/.env
+
+# Frontend
+frontend/node_modules/
+frontend/.env
+
+
+
+
+
+# Dashboard
+dashboard/node_modules/
+dashboard/.env
+
+# Build folders
 build/
+dist/
+
+# Logs
+*.log

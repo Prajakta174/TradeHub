@@ -1,0 +1,124 @@
+.orders {
+  padding: 0 24px 24px;
+  background: #fafafb;
+  min-height: 100vh;
+}
+
+/* Title */
+
+.orders h2 {
+  margin: 0 0 24px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Table */
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #ececec;
+}
+
+.orders-table th {
+  text-align: left;
+  padding: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ececec;
+  background: #fafafa;
+}
+
+.orders-table td {
+  padding: 16px;
+  font-size: 14px;
+  color: #444;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.orders-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.orders-table tbody tr:hover {
+  background: #fafcff;
+}
+
+/* First column */
+
+.orders-table td:first-child {
+  font-weight: 600;
+  color: #222;
+}
+
+/* Profit/Loss */
+
+.buy-type {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.sell-type {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+/* Status */
+
+.status {
+  color: #387ed1;
+  font-weight: 600;
+}
+
+/* Empty State */
+
+.no-orders {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.no-orders h3 {
+  font-size: 28px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.no-orders p {
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.no-orders .btn {
+  display: inline-block;
+  padding: 10px 24px;
+  background: #387ed1;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.no-orders .btn:hover {
+  background: #2968b8;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+  .orders {
+    padding: 0 16px 16px;
+  }
+
+  .orders-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .orders-table table {
+    min-width: 900px;
+  }
+}

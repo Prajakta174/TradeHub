@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Menu = () => {
+  const { user, setUser } = useAuth();
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
@@ -14,12 +15,32 @@ const Menu = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:3002/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      setUser(null);
+
+      window.location.href = "http://localhost:3000/login";
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
 
   return (
     <div className="menu-container">
-      <img src="logo.png" style={{ width: "50px" }} />
+      <img
+        src="logo.png"
+        style={{ width: "50px", cursor: "pointer" }}
+        onClick={() => {
+          window.location.href = "http://localhost:3000";
+        }}
+      />
       <div className="menus">
         <ul>
           <li>
@@ -80,20 +101,58 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="/apps"
-              onClick={() => handleMenuClick(6)}
+              to="/transactions"
+              onClick={() => handleMenuClick(5)}
             >
-              <p className={selectedMenu === 6 ? activeMenuClass : menuClass}>
-                Apps
+              <p className={selectedMenu === 5 ? activeMenuClass : menuClass}>
+                Transactions
               </p>
             </Link>
+          </li>
+          <li>
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/apps"
+              onClick={() => handleMenuClick(6)}
+            ></Link>
           </li>
         </ul>
         <hr />
         <div className="profile" onClick={handleProfileClick}>
-          <div className="avatar">ZU</div>
-          <p className="username">USERID</p>
+          <div className="avatar">
+            {user?.profileImage ? (
+              <img src={user.profileImage} alt="Profile" />
+            ) : (
+              user?.username.charAt(0).toUpperCase() || "U"
+            )}
+          </div>
+
+          <p className="username">{user ? user.username : "Guest"}</p>
         </div>
+        {isProfileDropdownOpen && (
+          <div className="profile-dropdown">
+            <Link
+              to="/profile"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <p>👤 My Profile</p>
+            </Link>
+            <Link
+              to="/settings"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <p>⚙️ Settings</p>
+            </Link>
+            <p
+              onClick={() => {
+                window.location.href = "http://localhost:3000";
+              }}
+            >
+              🌐 Go to Website
+            </p>
+            <p onClick={handleLogout}>🚪 Logout</p>
+          </div>
+        )}
       </div>
     </div>
   );

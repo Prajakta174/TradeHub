@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState, useContext } from "react";
 import axios from "axios";
 
 import GeneralContext from "./GeneralContext";
@@ -8,61 +6,78 @@ import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css";
 
 const BuyActionWindow = ({ uid }) => {
+  const generalContext = useContext(GeneralContext);
+
   const [stockQuantity, setStockQuantity] = useState(1);
-  const [stockPrice, setStockPrice] = useState(0.0);
 
-  const handleBuyClick = () => {
-    axios.post("http://localhost:3002/newOrder", {
-      name: uid,
-      qty: stockQuantity,
-      price: stockPrice,
-      mode: "BUY",
-    });
+  const handleBuyClick = async () => {
+    try {
+      await axios.post(
+        "http://localhost:3002/api/orders/buy",
+        {
+          symbol: uid,
+          quantity: Number(stockQuantity),
+        },
+        {
+          withCredentials: true,
+        },
+      );
 
-    GeneralContext.closeBuyWindow();
+      alert("Stock purchased successfully!");
+
+      generalContext.closeBuyWindow();
+
+      // Later we'll refresh holdings automatically
+      window.location.reload();
+    } catch (err) {
+      alert(err.response?.data?.message || "Purchase failed");
+    }
   };
 
   const handleCancelClick = () => {
-    GeneralContext.closeBuyWindow();
+    generalContext.closeBuyWindow();
   };
 
   return (
-    <div className="container" id="buy-window" draggable="true">
-      <div className="regular-order">
-        <div className="inputs">
-          <fieldset>
-            <legend>Qty.</legend>
-            <input
-              type="number"
-              name="qty"
-              id="qty"
-              onChange={(e) => setStockQuantity(e.target.value)}
-              value={stockQuantity}
-            />
-          </fieldset>
-          <fieldset>
-            <legend>Price</legend>
-            <input
-              type="number"
-              name="price"
-              id="price"
-              step="0.05"
-              onChange={(e) => setStockPrice(e.target.value)}
-              value={stockPrice}
-            />
-          </fieldset>
+    <div className="modal-overlay">
+      <div className="container" id="buy-window">
+        <div className="header">
+          <h3>Buy {uid}</h3>
+          <p>Place a market order</p>
         </div>
-      </div>
+        <div className="regular-order">
+          <div className="inputs">
+            <fieldset>
+              <legend>Quantity</legend>
+              <div className="info-box">
+                <p>
+                  Stock: <strong>{uid}</strong>
+                </p>
 
-      <div className="buttons">
-        <span>Margin required ₹140.65</span>
-        <div>
-          <Link className="btn btn-blue" onClick={handleBuyClick}>
-            Buy
-          </Link>
-          <Link to="" className="btn btn-grey" onClick={handleCancelClick}>
-            Cancel
-          </Link>
+                <p>
+                  Order Type: <strong>Market Order</strong>
+                </p>
+              </div>
+              <input
+                type="number"
+                min="1"
+                value={stockQuantity}
+                onChange={(e) => setStockQuantity(e.target.value)}
+              />
+            </fieldset>
+          </div>
+        </div>
+
+        <div className="buttons">
+          <div>
+            <button className="btn btn-blue" onClick={handleBuyClick}>
+              Buy
+            </button>
+
+            <button className="btn btn-grey" onClick={handleCancelClick}>
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>

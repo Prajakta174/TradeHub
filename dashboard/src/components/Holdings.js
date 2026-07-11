@@ -1,29 +1,35 @@
 import React, { useState, useEffect } from "react";
-import axios, { all } from "axios";
+import axios from "axios";
 import { VerticalGraph } from "./VerticalGraph";
-
+import "./holding.css";
 // import { holdings } from "../data/data";
 
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
-  const [allPositions, setAllPositions]=useState([]);
+  const [allPositions, setAllPositions] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3002/allHoldings").then((res) => {
-      // console.log(res.data);
-      setAllHoldings(res.data);
-    });
+    axios
+      .get("http://localhost:3002/api/holdings", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setAllHoldings(res.data);
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   //fetch position
 
-  useEffect(()=>{
-    axios.get("http://localhost:3002/allPositions")
-    .then((res)=>{
-      setAllPositions(res.data);
-    })
-    .catch((err)=>
-    console.error("Error fetching data : ",err));
-  },[]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3002/api/positions", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setAllPositions(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   const labels = allHoldings.map((subArray) => subArray["name"]);
@@ -34,7 +40,11 @@ const Holdings = () => {
       {
         label: "Stock Price",
         data: allHoldings.map((stock) => stock.price),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: "#387ed1",
+        borderRadius: 8,
+        borderSkipped: false,
+        hoverBackgroundColor: "#2968b8",
+        maxBarThickness: 35,
       },
     ],
   };
@@ -61,16 +71,18 @@ const Holdings = () => {
 
       <div className="order-table">
         <table>
-          <tr>
-            <th>Instrument</th>
-            <th>Qty.</th>
-            <th>Avg. cost</th>
-            <th>LTP</th>
-            <th>Cur. val</th>
-            <th>P&L</th>
-            <th>Net chg.</th>
-            <th>Day chg.</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Instrument</th>
+              <th>Qty.</th>
+              <th>Avg. cost</th>
+              <th>LTP</th>
+              <th>Cur. val</th>
+              <th>P&L</th>
+              <th>Net chg.</th>
+              <th>Day chg.</th>
+            </tr>
+          </thead>
 
           {allHoldings.map((stock, index) => {
             const curValue = stock.price * stock.qty;
@@ -114,7 +126,9 @@ const Holdings = () => {
           <p>P&L</p>
         </div>
       </div>
-      <VerticalGraph data={data} />
+      <div className="chart-card">
+        <VerticalGraph data={data} />
+      </div>
     </>
   );
 };

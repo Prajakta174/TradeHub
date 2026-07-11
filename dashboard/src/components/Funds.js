@@ -1,85 +1,107 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import AddFundsModal from "./AddFundsModal";
+import "./Funds.css";
+import WithdrawFundsModal from "./WithDrawFundsModal";
 
 const Funds = () => {
+  const [funds, setFunds] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+  useEffect(() => {
+    fetchFunds();
+  }, []);
+
+  const fetchFunds = async () => {
+    try {
+      const res = await axios.get("http://localhost:3002/api/funds", {
+        withCredentials: true,
+      });
+
+      setFunds(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  if (!funds) {
+    return <h3 style={{ padding: "20px" }}>Loading Funds...</h3>;
+  }
+
   return (
     <>
-      <div className="funds">
-        <p>Instant, zero-cost fund transfers with UPI </p>
-        <Link className="btn btn-green">Add funds</Link>
-        <Link className="btn btn-blue">Withdraw</Link>
+      <div className="funds-header">
+        <h2>Funds</h2>
+
+        <div className="fund-buttons">
+          <button className=" btn-green" onClick={() => setShowAddModal(true)}>
+            Add Funds
+          </button>
+          <button
+            className=" btn-blue"
+            onClick={() => setShowWithdrawModal(true)}
+          >
+            Withdraw
+          </button>
+        </div>
       </div>
 
-      <div className="row">
-        <div className="col">
-          <span>
-            <p>Equity</p>
-          </span>
+      <div className=" fund-card">
+        <h3>Equity</h3>
 
-          <div className="table">
-            <div className="data">
-              <p>Available margin</p>
-              <p className="imp colored">4,043.10</p>
-            </div>
-            <div className="data">
-              <p>Used margin</p>
-              <p className="imp">3,757.30</p>
-            </div>
-            <div className="data">
-              <p>Available cash</p>
-              <p className="imp">4,043.10</p>
-            </div>
-            <hr />
-            <div className="data">
-              <p>Opening Balance</p>
-              <p>4,043.10</p>
-            </div>
-            <div className="data">
-              <p>Opening Balance</p>
-              <p>3736.40</p>
-            </div>
-            <div className="data">
-              <p>Payin</p>
-              <p>4064.00</p>
-            </div>
-            <div className="data">
-              <p>SPAN</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Delivery margin</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Exposure</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Options premium</p>
-              <p>0.00</p>
-            </div>
-            <hr />
-            <div className="data">
-              <p>Collateral (Liquid funds)</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Collateral (Equity)</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Total Collateral</p>
-              <p>0.00</p>
-            </div>
+        <div className="fund-grid">
+          <div className="fund-item">
+            <span>Available Balance</span>
+            <h2 className="primary">₹{funds.availableBalance.toFixed(2)}</h2>
+          </div>
+
+          <div className="fund-item">
+            <span>Used Margin</span>
+            <h2>₹{funds.usedMargin.toFixed(2)}</h2>
+          </div>
+
+          <div className="fund-item">
+            <span>Opening Balance</span>
+            <h2>₹{funds.openingBalance.toFixed(2)}</h2>
+          </div>
+
+          <div className="fund-item">
+            <span>Pay In</span>
+            <h2>₹{funds.payin.toFixed(2)}</h2>
+          </div>
+
+          <div className="fund-item">
+            <span>Pay Out</span>
+            <h2>₹{funds.payout.toFixed(2)}</h2>
+          </div>
+
+          <div className="fund-item">
+            <span>Total Funds</span>
+            <h2 className="profit">
+              ₹{(funds.availableBalance + funds.usedMargin).toFixed(2)}
+            </h2>
           </div>
         </div>
+      </div>
 
-        <div className="col">
-          <div className="commodity">
-            <p>You don't have a commodity account</p>
-            <Link className="btn btn-blue">Open Account</Link>
-          </div>
-        </div>
+      <div className="commodity-card">
+        <h3>Commodity Account</h3>
+
+        <p>You don't have a commodity trading account yet.</p>
+
+        <button className="btn-blue">Open Commodity Account</button>
+        {showAddModal && (
+          <AddFundsModal
+            close={() => setShowAddModal(false)}
+            refresh={fetchFunds}
+          />
+        )}
+        {showWithdrawModal && (
+          <WithdrawFundsModal
+            close={() => setShowWithdrawModal(false)}
+            refresh={fetchFunds}
+          />
+        )}
       </div>
     </>
   );

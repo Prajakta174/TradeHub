@@ -1,0 +1,153 @@
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* Modal */
+.funds-modal {
+  width: 430px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+  animation: modalOpen .25s ease;
+}
+
+@keyframes modalOpen {
+  from {
+    transform: translateY(20px) scale(.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.funds-modal-header {
+  background: linear-gradient(135deg, #387ed1, #2d6cc0);
+  padding: 22px 24px;
+}
+
+.funds-modal-header h2 {
+  color: white;
+  font-size: 1.35rem;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.funds-modal-header p {
+  color: rgba(255,255,255,.85);
+  font-size: .9rem;
+}
+
+/* Body */
+.funds-modal-body {
+  padding: 28px 24px;
+}
+
+.amount-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #555;
+  font-weight: 500;
+}
+
+.amount-input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #d7dce5;
+  border-radius: 10px;
+  padding: 0 16px;
+  font-size: 20px;
+  transition: .25s;
+}
+
+.amount-input:focus {
+  outline: none;
+  border-color: #387ed1;
+  box-shadow: 0 0 0 4px rgba(56,126,209,.15);
+}
+
+.amount-input::placeholder {
+  color: #aaa;
+}
+
+/* Quick Amount */
+.quick-amounts {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.quick-btn {
+  flex: 1;
+  border: none;
+  background: #eef5ff;
+  color: #387ed1;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.quick-btn:hover {
+  background: #387ed1;
+  color: white;
+}
+
+/* Footer */
+.funds-modal-footer {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #edf0f5;
+}
+
+.cancel-btn,
+.action-btn {
+  border: none;
+  padding: 12px 26px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: .95rem;
+  font-weight: 600;
+  transition: .25s;
+}
+
+.cancel-btn {
+  background: #f3f4f6;
+  color: #555;
+}
+
+.cancel-btn:hover {
+  background: #ddd;
+}
+
+.action-btn {
+  background: #387ed1;
+  color: white;
+}
+
+.action-btn:hover {
+  background: #2968b8;
+}
+
+/* Withdraw */
+.action-btn.withdraw {
+  background: #e53935;
+}
+
+.action-btn.withdraw:hover {
+  background: #c62828;
+}
