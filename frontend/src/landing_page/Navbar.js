@@ -9,7 +9,7 @@ function Navbar() {
         withCredentials: true,
       });
 
-      window.location.href = "http://localhost:3001";
+      window.location.href = "https://tradehub-sandy-omega.vercel.app";
     } catch {
       // Save the dashboard URL
       localStorage.setItem("redirectAfterLogin", "http://localhost:3001");
