@@ -214,8 +214,17 @@ npm start
 Runs on
 
 ```
-https://tradehub-sandy-omega.vercel.app
+http://localhost:3001
 ```
+
+## 🌐 Live Demo
+
+- **Landing Website:** https://trade-hub-zeta.vercel.app
+- **Trading Dashboard:** https://tradehub-sandy-omega.vercel.app
+
+## 🔗 Backend API
+
+- https://tradehub-6mu3.onrender.com
 
 ---
 

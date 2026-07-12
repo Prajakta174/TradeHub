@@ -32,6 +32,8 @@ app.use(
     origin: [
       "https://trade-hub-zeta.vercel.app",
       "https://tradehub-sandy-omega.vercel.app",
+      "http://localhost:3000",
+      "http://localhost:3001",
     ],
     credentials: true,
   }),
