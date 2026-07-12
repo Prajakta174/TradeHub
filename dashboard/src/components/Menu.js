@@ -36,6 +36,7 @@ const Menu = () => {
     <div className="menu-container">
       <img
         src="logo.png"
+        alt="TradeHub Logo"
         style={{ width: "50px", cursor: "pointer" }}
         onClick={() => {
           window.location.href = "http://localhost:3000";

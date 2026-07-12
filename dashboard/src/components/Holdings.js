@@ -6,7 +6,7 @@ import "./holding.css";
 
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
-  const [allPositions, setAllPositions] = useState([]);
+
   useEffect(() => {
     axios
       .get("https://tradehub-6mu3.onrender.com/api/holdings", {
@@ -19,17 +19,6 @@ const Holdings = () => {
   }, []);
 
   //fetch position
-
-  useEffect(() => {
-    axios
-      .get("https://tradehub-6mu3.onrender.com/api/positions", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setAllPositions(res.data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
 
   // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   const labels = allHoldings.map((subArray) => subArray["name"]);
@@ -48,22 +37,6 @@ const Holdings = () => {
       },
     ],
   };
-
-  // export const data = {
-  //   labels,
-  //   datasets: [
-  // {
-  //   label: 'Dataset 1',
-  //   data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-  //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
-  // },
-  //     {
-  //       label: 'Dataset 2',
-  //       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-  //       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-  //     },
-  //   ],
-  // };
 
   return (
     <>
