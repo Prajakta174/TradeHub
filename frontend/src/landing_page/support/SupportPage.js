@@ -1,15 +1,15 @@
-import React from 'react';
-import Hero from './Hero';
-import CreatTicket from './CreatTicket';
-import CreatTicket2 from './CreatTicket2';
+import React from "react";
+import Hero from "./Hero";
+import CreatTicket from "./CreatTicket";
+
 function SupportPage() {
-    return (  
-        <>
-        <Hero/>
-        
-        <CreatTicket/>
-        </>
-    );
+  return (
+    <>
+      <Hero />
+
+      <CreatTicket />
+    </>
+  );
 }
 
 export default SupportPage;
