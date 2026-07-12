@@ -7,7 +7,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     if (!loading && !user) {
       window.location.href =
-        "http://localhost:3000/login?message=session-expired";
+        "https://trade-hub-zeta.vercel.app/login?message=session-expired";
     }
   }, [user, loading]);
 

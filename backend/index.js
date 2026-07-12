@@ -29,7 +29,12 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "https://trade-hub-zeta.vercel.app",
+      "https://tradehub-sandy-omega.vercel.app",
+    ],
     credentials: true,
   }),
 );
