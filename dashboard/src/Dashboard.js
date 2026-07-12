@@ -8,7 +8,7 @@ function Dashboard() {
         console.log("User authenticated");
       })
       .catch(() => {
-        window.location.href = "http://localhost:3000/login";
+        window.location.href = "https://trade-hub-zeta.vercel.app/login";
       });
   }, []);
 

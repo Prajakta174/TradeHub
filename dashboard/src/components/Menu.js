@@ -24,7 +24,7 @@ const Menu = () => {
 
       setUser(null);
 
-      window.location.href = "http://localhost:3000/login";
+      window.location.href = "https://trade-hub-zeta.vercel.app/login";
     } catch (err) {
       console.log(err);
     }
@@ -39,7 +39,7 @@ const Menu = () => {
         alt="TradeHub Logo"
         style={{ width: "50px", cursor: "pointer" }}
         onClick={() => {
-          window.location.href = "http://localhost:3000";
+          window.location.href = "https://trade-hub-zeta.vercel.app";
         }}
       />
       <div className="menus">
@@ -146,7 +146,7 @@ const Menu = () => {
             </Link>
             <p
               onClick={() => {
-                window.location.href = "http://localhost:3000";
+                window.location.href = "https://trade-hub-zeta.vercel.app";
               }}
             >
               🌐 Go to Website

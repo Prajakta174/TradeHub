@@ -14,7 +14,7 @@ function Navbar() {
       // Save the dashboard URL
       localStorage.setItem("redirectAfterLogin", "http://localhost:3001");
 
-      window.location.href = "http://localhost:3000/login";
+      window.location.href = "https://trade-hub-zeta.vercel.app/login";
     }
   };
   return (
