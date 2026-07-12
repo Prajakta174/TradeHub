@@ -214,7 +214,7 @@ npm start
 Runs on
 
 ```
-http://localhost:3001
+https://tradehub-sandy-omega.vercel.app
 ```
 
 ---

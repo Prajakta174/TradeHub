@@ -35,7 +35,8 @@ function Login() {
       alert("Login successful");
 
       const redirect =
-        localStorage.getItem("redirectAfterLogin") || "http://localhost:3001";
+        localStorage.getItem("redirectAfterLogin") ||
+        "https://tradehub-sandy-omega.vercel.app";
 
       localStorage.removeItem("redirectAfterLogin");
 
