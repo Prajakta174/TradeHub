@@ -61,7 +61,7 @@ async function loginUser(req, res) {
   res.cookie("token", token, {
     httpOnly: true,
     secure: true, // true in production
-    sameSite: "lax",
+    sameSite: "none",
   });
 
   res.status(200).json({
@@ -77,8 +77,8 @@ async function loginUser(req, res) {
 async function logoutUser(req, res) {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false, // true in production (HTTPS)
-    sameSite: "lax",
+    secure: true, // true in production (HTTPS)
+    sameSite: "none",
   });
 
   res.status(200).json({
