@@ -12,7 +12,10 @@ function Navbar() {
       window.location.href = "https://tradehub-sandy-omega.vercel.app";
     } catch {
       // Save the dashboard URL
-      localStorage.setItem("redirectAfterLogin", "http://localhost:3001");
+      localStorage.setItem(
+        "redirectAfterLogin",
+        "https://tradehub-sandy-omega.vercel.app",
+      );
 
       window.location.href = "https://trade-hub-zeta.vercel.app/login";
     }
