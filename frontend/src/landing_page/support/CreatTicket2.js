@@ -59,7 +59,10 @@ function CreatTicket2() {
                   <ul className="mt-2 ms-4 list-unstyled">
                     {section.links.map((link, i) => (
                       <li key={i}>
-                        <a href="#" className="text-decoration-none d-block py-1">
+                        <a
+                          href="/"
+                          className="text-decoration-none d-block py-1"
+                        >
                           {link}
                         </a>
                       </li>
@@ -75,7 +78,10 @@ function CreatTicket2() {
         <div className="col-lg-4 col-md-12 mb-4">
           <div className="p-3 border bg-light">
             <h4>Right Section</h4>
-            <p>This section takes 4/12 width on large screens and full width on smaller ones.</p>
+            <p>
+              This section takes 4/12 width on large screens and full width on
+              smaller ones.
+            </p>
           </div>
         </div>
       </div>

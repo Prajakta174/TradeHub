@@ -51,7 +51,7 @@ function ProductPage() {
       <div className="container mt-5 p-5">
         <h4 className="text-center text-muted fs-5">
           Want to know more about our technology stack? Check out the{" "}
-          <a href="#">Zerodha.tech</a> blog.
+          <a href="/">Zerodha.tech</a> blog.
         </h4>
       </div>
 
